@@ -42,10 +42,32 @@ int main()
 
               switch (opcion){
                      case 1:
+<<<<<<< HEAD
                              cout<<" se hace el registro de variables dadas por el Usuario..."<<endl;
                              cout<<"Cuantas materias tienes este semestre?  :"<<endl;
                              int n;
                              cin>>n;
+=======
+                             char Materia[50];
+                             int codigo, creditos, HTD;
+
+                                         // Solicitar información al usuario
+                                         cout << "Ingrese el codigo de la materia: ";
+                                        cin>>codigo;
+                                        cin.ignore();
+                                         cout << "Ingrese el nombre de la materia: ";
+                                        cin.getline(Materia, 50);
+                                         cout << "Ingrese creditos de la materia: ";
+                                         cin>>creditos;
+                                         cout << "Ingrese las horas dictadas por el docente: ";
+                                         cin>>HTD;
+
+
+                                        registro(codigo,Materia,creditos,HTD);
+                                        repetir=true;
+
+                             repetir=true;
+>>>>>>> 4173c695758b18d2c15803b71df29c44915135f4
 
                              //LA IDEA ES AQUI PONER A FUNCIONAR LA FUNCION DINAMICA crearMatriz
 
