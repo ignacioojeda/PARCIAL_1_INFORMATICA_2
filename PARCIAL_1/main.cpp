@@ -4,13 +4,18 @@ using namespace std;
 
 //VARIABLES GLOBALES
 int opcion;
-int n=1;
+int n;
 
 
 
 //PROTOTIPO FUNCIONES
 void MENUPRINCIPAL(int opcion);
 void menuAdministrador(int opcion);
+
+
+
+
+
 
 int main()
 {
@@ -38,14 +43,19 @@ int main()
               switch (opcion){
                      case 1:
                              cout<<" se hace el registro de variables dadas por el Usuario..."<<endl;
-                             repetir=true;
+                             cout<<"Cuantas materias tienes este semestre?  :"<<endl;
+                             int n;
+                             cin>>n;
 
-                            break;
+                             //LA IDEA ES AQUI PONER A FUNCIONAR LA FUNCION DINAMICA crearMatriz
+
+                             repetir=true;
+                             break;
 
                      case 2:
                              cout<<" aqui se visualiza el horario HTD..."<<endl;
-                             repetir=true;
 
+                             repetir=true;
                              break;
 
                      case 3:
@@ -58,4 +68,27 @@ int main()
                              repetir=false;
                 }
             } while (repetir==true);
+
          }
+
+//FUNCIONES DINAMICAS
+        char** crearMatriz(int n) {
+          // Definir la matriz dinámicamente
+          char** matriz = new char*[n];
+          for (int i = 0; i < n; i++) {
+            matriz[i] = new char[5];
+          }
+
+          // Llenar la matriz con datos de entrada proporcionados por el usuario
+          for (int i = 0; i < n; i++) {
+            for (int j = 0; j < 2; j++) {
+              cout << "Ingresa el elemento [" << i << "][" << j << "]: ";
+              cin >> matriz[i][j];
+            }
+          }
+
+          // Retornar la matriz
+          return matriz;
+        }
+
+
