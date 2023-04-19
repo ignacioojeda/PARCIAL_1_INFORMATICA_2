@@ -68,3 +68,31 @@ void visualizaHTD(char ***Materia,int num_materias)
       cout << "No se pudo abrir el archivo" << endl;}
 }
 
+void organizarSemana() {
+
+    int*** semana = new int**[7]; // Puntero triple llamado "semana" con 7 punteros dobles
+    for (int i = 0; i < 7; i++) {
+        semana[i] = new int*[24]; // Cada puntero doble llamado "dia" tiene 24 punteros simples
+        for (int j = 0; j < 24; j++) {
+            semana[i][j] = nullptr; // Inicializar cada puntero simple a nulo
+        }
+        char materia;
+        int hora;
+        do {
+            cout << "Ingresa el nombre de la materia para el dia " << i << " (o presiona enter para terminar): ";
+            cin.ignore();
+            materia = cin.get();
+            if (materia != '\n') {
+                cout << "Ingresa la hora para la materia " << materia << " del dia " << i << ": ";
+                cin >> hora;
+                semana[i][hora] = new int(materia); // Almacenar la variable char en el puntero simple correspondiente
+            }
+        } while (materia != '\n');
+        for (int j = 0; j < 24; j++) {
+            if (semana[i][j] == nullptr) { // Si el puntero simple es nulo, asignar el valor "---"
+                semana[i][j] = new int('-');
+            }
+        }
+    }
+
+}
