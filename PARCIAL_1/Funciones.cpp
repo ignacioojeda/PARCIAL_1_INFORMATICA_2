@@ -96,3 +96,42 @@ void organizarSemana() {
     }
 
 }
+
+void imprimirHorarioSemana(int*** semana) {
+    cout << "Horario semanal:" << endl;
+    for (int i = 0; i < 7; i++) {
+        switch (i) {
+            case 0:
+                cout << "Lunes:" << endl;
+                break;
+            case 1:
+                cout << "Martes:" << endl;
+                break;
+            case 2:
+                cout << "Miércoles:" << endl;
+                break;
+            case 3:
+                cout << "Jueves:" << endl;
+                break;
+            case 4:
+                cout << "Viernes:" << endl;
+                break;
+            case 5:
+                cout << "Sábado:" << endl;
+                break;
+            case 6:
+                cout << "Domingo:" << endl;
+                break;
+        }
+
+        for (int j = 0; j < 24; j++) {
+            cout << j << ":00 - " << j + 1 << ":00: ";
+            if (semana[i][j] != nullptr) {
+                cout << semana[i][j] << endl;
+            } else {
+                cout << "---" << endl;
+            }
+        }
+        cout << endl;
+    }
+}
