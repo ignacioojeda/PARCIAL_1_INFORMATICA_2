@@ -5,8 +5,10 @@
 
 using namespace std;
 
-void registro(int codigo, char Materia[], int creditos, int HTD);
+char ***registro(int num_materias);
+void visualizaHTD(char ***curso, int num_materias);
 int HTI(int creditos, int HTD);
+
 
 
 #endif // FUNCIONES_H

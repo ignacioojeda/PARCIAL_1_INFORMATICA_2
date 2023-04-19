@@ -1,4 +1,5 @@
 #include <iostream>
+#include "Funciones.h"
 
 using namespace std;
 
@@ -42,36 +43,19 @@ int main()
 
               switch (opcion){
                      case 1:
-<<<<<<< HEAD
                              cout<<" se hace el registro de variables dadas por el Usuario..."<<endl;
-                             cout<<"Cuantas materias tienes este semestre?  :"<<endl;
-                             int n;
-                             cin>>n;
-=======
-                             char Materia[50];
-                             int codigo, creditos, HTD;
-
-                                         // Solicitar información al usuario
-                                         cout << "Ingrese el codigo de la materia: ";
-                                        cin>>codigo;
-                                        cin.ignore();
-                                         cout << "Ingrese el nombre de la materia: ";
-                                        cin.getline(Materia, 50);
-                                         cout << "Ingrese creditos de la materia: ";
-                                         cin>>creditos;
-                                         cout << "Ingrese las horas dictadas por el docente: ";
-                                         cin>>HTD;
+                             int num_materias;
+                             cout << "Cuantas materias tienes este semestre?  :"<<endl;
+                             cin >> num_materias;
 
 
-                                        registro(codigo,Materia,creditos,HTD);
+                                       registro(num_materias);
+
                                         repetir=true;
 
-                             repetir=true;
->>>>>>> 4173c695758b18d2c15803b71df29c44915135f4
 
                              //LA IDEA ES AQUI PONER A FUNCIONAR LA FUNCION DINAMICA crearMatriz
 
-                             repetir=true;
                              break;
 
                      case 2:
@@ -93,24 +77,5 @@ int main()
 
          }
 
-//FUNCIONES DINAMICAS
-        char** crearMatriz(int n) {
-          // Definir la matriz dinámicamente
-          char** matriz = new char*[n];
-          for (int i = 0; i < n; i++) {
-            matriz[i] = new char[5];
-          }
-
-          // Llenar la matriz con datos de entrada proporcionados por el usuario
-          for (int i = 0; i < n; i++) {
-            for (int j = 0; j < 2; j++) {
-              cout << "Ingresa el elemento [" << i << "][" << j << "]: ";
-              cin >> matriz[i][j];
-            }
-          }
-
-          // Retornar la matriz
-          return matriz;
-        }
 
 
