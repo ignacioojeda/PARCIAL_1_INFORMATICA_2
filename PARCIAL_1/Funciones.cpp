@@ -1,48 +1,6 @@
 #include "Funciones.h"
-char*** registro(int num_materias)
-{
 
 
-    char*** Materia = new char**[num_materias]; // reserva de memoria para las materias
-    for (int i = 0; i < num_materias; i++) {
-        Materia[i] = new char*[7]; // datos de cada materia
-        for (int j = 0; j < 7; j++) {
-            Materia[i][j] = new char[50];
-        }
-    }
-
-    // ingresar los datos del Materia en la matriz
-    for (int i = 0; i < num_materias; i++) {
-        cout << "Ingrese el codigo de la materia " << i+1 << ": ";
-        cin >> Materia[i][0];
-        cout << "Ingrese el nombre de la materia " << i+1 << ": ";
-        cin >> Materia[i][1];
-        cout << "Ingrese el numero de creditos de la materia " << i+1 << ": ";
-        cin >> Materia[i][2];
-        cout << "Ingrese la hora de inicio de la materia " << i+1 << ": ";
-        cin >> Materia[i][3];
-        cout << "Ingrese la hora de fin de la materia " << i+1 << ": ";
-        cin >> Materia[i][4];
-        cout << "Ingrese los dias de la semana en que se imparte la materia " << i+1 << ": ";
-        cin >> Materia[i][5];
-        cout << "Ingrese la hora limite de estudio para la materia " << i+1 << ": ";
-        cin >> Materia[i][6];
-    }
-
-return Materia;
-
-
-// liberar la memoria reservada para el Materia
-for (int i = 0; i < num_materias; i++) {
-    for (int j = 0; j < 7; j++) {
-        delete[] Materia[i][j];
-    }
-    delete[] Materia[i];
-}
-delete[] Materia;
-
-
-}
 
 int HTI(int creditos, int HTD)
 { int H_semana= creditos* 48 - HTD;
@@ -68,69 +26,113 @@ void visualizaHTD(char ***Materia,int num_materias)
       cout << "No se pudo abrir el archivo" << endl;}
 }
 
-void organizarSemana() {
 
+
+
+
+int*** registroSemanaHTD() {
     int*** semana = new int**[7]; // Puntero triple llamado "semana" con 7 punteros dobles
+    cout<<"ingrese la hora maxima de estudio por dia en formato 24 horas exacta "<<endl;
+    int limiteDia;
+    cin >> limiteDia;
+
     for (int i = 0; i < 7; i++) {
         semana[i] = new int*[24]; // Cada puntero doble llamado "dia" tiene 24 punteros simples
+
+
         for (int j = 0; j < 24; j++) {
-            semana[i][j] = nullptr; // Inicializar cada puntero simple a nulo
-        }
-        char materia;
-        int hora;
-        do {
-            cout << "Ingresa el nombre de la materia para el dia " << i << " (o presiona enter para terminar): ";
-            cin.ignore();
-            materia = cin.get();
-            if (materia != '\n') {
-                cout << "Ingresa la hora para la materia " << materia << " del dia " << i << ": ";
-                cin >> hora;
-                semana[i][hora] = new int(materia); // Almacenar la variable char en el puntero simple correspondiente
+            if (j >= limiteDia) {
+                semana[i][j] = new int[3]; // asignar espacio para  "NNN" de no mas estudio
+                semana[i][j][0] = 'N';
+                semana[i][j][1] = 'N';
+                semana[i][j][2] = '\0'; // termina con un nulo
+            } else {
+                semana[i][j] = nullptr; // Inicializar cada puntero simple a nulo
             }
-        } while (materia != '\n');
+        }
+        char materia[40];
+        int horaI;
+        int horaF;
+        bool continuar;
+        bool receso=true;
+        do {
+            cin.getline(materia, 40);
+            cout << "Ingresa el nombre de la materia para el dia " << i << " (o presiona enter para terminar): ";
+            cin.getline(materia, 40);
+            if (materia[0] != '\0') {
+                cout << "Ingresa la hora de inicio para la materia " << materia << " del dia " << i << ": ";
+                cin >> horaI;
+                cout << "Ingresa la hora de finalizacion para la materia " << materia << " del dia " << i << ": ";
+                cin >> horaF;
+
+                // contar manualmente el número de caracteres en la cadena de caracteres
+                int tam = 0;
+                while (materia[tam] != '\0') {
+                    tam++;
+                }
+                tam++; // para incluir el caracter nulo '\0'
+
+                for(int d=horaI ;d < horaF; d++){//ciclo que calcula la duracion de cada materia en el dia
+                semana[i][d] = new int[tam];
+                for (int k = 0; k < tam; k++) {
+                    semana[i][d][k] = materia[k]; // copiar cada caracter de la cadena de caracteres en el puntero simple correspondiente
+                  }
+                }
+
+                cin.ignore();
+                cout << "Desea ingresar otra materia para este dia? (S/N): ";
+                char respuesta;
+                cin >> respuesta;
+                if (respuesta == 'N' || respuesta == 'n') {
+                    continuar = false;
+                }
+                else if (respuesta == 'S' || respuesta == 's') {
+                    continuar = true;
+                }
+
+            } else {
+                continuar = false;
+            }
+        } while (continuar);
         for (int j = 0; j < 24; j++) {
             if (semana[i][j] == nullptr) { // Si el puntero simple es nulo, asignar el valor "---"
-                semana[i][j] = new int('-');
+                semana[i][j] = new int(45);
             }
         }
-    }
 
+        for(int a=11; a<=15;a++){
+            if(receso==true){
+                if(*semana[i][a]=='-'){
+                    semana[i][a] = new int[7]; // asignar espacio para receso
+                    semana[i][a][0] = 'R';
+                    semana[i][a][1] = 'E';
+                    semana[i][a][2] = 'C';
+                    semana[i][a][3] = 'E';
+                    semana[i][a][4] = 'S';
+                    semana[i][a][5] = 'O';
+                    semana[i][a][6] = '\0'; // termina con un nulo
+                    receso=false;
+                    }
+              }
+        }
+
+
+
+
+
+    }
+    return semana; // Devolver el puntero triple "semana"
 }
 
-void imprimirHorarioSemana(int*** semana) {
-    cout << "Horario semanal:" << endl;
+void imprimirSemanaHTD(int*** semana) {
     for (int i = 0; i < 7; i++) {
-        switch (i) {
-            case 0:
-                cout << "Lunes:" << endl;
-                break;
-            case 1:
-                cout << "Martes:" << endl;
-                break;
-            case 2:
-                cout << "Miércoles:" << endl;
-                break;
-            case 3:
-                cout << "Jueves:" << endl;
-                break;
-            case 4:
-                cout << "Viernes:" << endl;
-                break;
-            case 5:
-                cout << "Sábado:" << endl;
-                break;
-            case 6:
-                cout << "Domingo:" << endl;
-                break;
-        }
-
-        for (int j = 0; j < 24; j++) {
-            cout << j << ":00 - " << j + 1 << ":00: ";
-            if (semana[i][j] != nullptr) {
-                cout << semana[i][j] << endl;
-            } else {
-                cout << "---" << endl;
+        cout << "Dia " << i << endl;
+        for (int j = 6; j < 24; j++) {
+            cout << j << ": ";
+            for (int k = 0; semana[i][j][k] != '\0'; k++) {
+                cout << (char)semana[i][j][k];
             }
+            cout << endl;
         }
         cout << endl;
     }

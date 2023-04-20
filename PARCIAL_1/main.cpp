@@ -6,14 +6,17 @@ using namespace std;
 //VARIABLES GLOBALES
 int opcion;
 int n;
+int*** semana = nullptr;
 
 
 
 //PROTOTIPO FUNCIONES
 void MENUPRINCIPAL(int opcion);
-void menuAdministrador(int opcion);
+void imprimirSemanaHTD(int*** semana);
 
 
+//PROTOTIPO FUNCIONES DINAMICAS
+int*** registroSemanaHTD();
 
 
 
@@ -43,27 +46,19 @@ int main()
 
               switch (opcion){
                      case 1:
-<<<<<<< HEAD
-=======
-                             cout<<" se hace el registro de variables dadas por el Usuario..."<<endl;
-                             int num_materias;
-                             cout << "Cuantas materias tienes este semestre?  :"<<endl;
-                             cin >> num_materias;
 
+                             semana = registroSemanaHTD();
 
-                                       registro(num_materias);
-
-                                        repetir=true;
-
->>>>>>> d66902e1f0c68692b3b7923ffaa2f5fea05b8de5
-
-                             //LA IDEA ES AQUI PONER A FUNCIONAR LA FUNCION DINAMICA crearMatriz
-
+                             repetir=true;
                              break;
 
                      case 2:
-                             cout<<" aqui se visualiza el horario HTD..."<<endl;
 
+                             if (semana != nullptr) {
+                                                 imprimirSemanaHTD(semana);
+                                             } else {
+                                                 cout << "El horario no ha sido creado todavía." << endl;
+                                             }
                              repetir=true;
                              break;
 
