@@ -1,0 +1,8 @@
+Materia 1:
+Nombre: info ii
+Creditos: 4
+
+Materia 2:
+Nombre: fisica
+Creditos: 3
+

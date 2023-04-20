@@ -5,8 +5,9 @@
 
 using namespace std;
 
-char ***registro(int num_materias);
-void visualizaHTD(char ***curso, int num_materias);
+int*** registroSemanaHTD();
+char*** registrarMaterias(int& numPunterosDobles);
+void imprimirSemanaHTD(int*** semana) ;
 int HTI(int creditos, int HTD);
 
 

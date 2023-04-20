@@ -10,24 +10,6 @@ int HTI(int creditos, int HTD)
 
 
 
-void visualizaHTD(char ***Materia,int num_materias)
-{
-    // Guardar la información en un archivo de texto
-  ofstream archivo("Materias.txt",ios::app); // Abrir el archivo en modo de escritura al final
-    if (archivo.is_open()) {
-        for (int i = 0; i < num_materias; i++) {
-      archivo << "Materia " << i+1 << ": " << endl << "Codigo: " << Materia[i][0] << endl << "Nombre: " << Materia[i][1] << endl<< "Creditos: " << Materia[i][2] << endl << "Hora de inicio: " << Materia[i][3] << endl;
-      archivo << "Hora de fin: " << Materia[i][4] << endl<< "Dias de la semana: " << Materia[i][5] << endl<< "Hora limite de estudio: " << Materia[i][6] << endl<< endl;
-
-}
-       archivo.close();
-   }
-    else {
-      cout << "No se pudo abrir el archivo" << endl;}
-}
-
-
-
 
 
 int*** registroSemanaHTD() {
@@ -154,7 +136,8 @@ char*** registrarMaterias(int& numPunterosDobles) {
         // Pedimos al usuario que introduzca el nombre de la materia
         cout << "Introduzca el nombre de la materia (o escriba 'FIN' para salir): ";
         char nombreMateria[50];
-        cin >> nombreMateria;
+        cin.ignore();
+        cin.getline(nombreMateria, 50);
 
         // Si el usuario escribe 'FIN', salimos del ciclo
         if (nombreMateria[0] == 'F' && nombreMateria[1] == 'I' && nombreMateria[2] == 'N' && nombreMateria[3] == '\0') {

@@ -64,11 +64,12 @@ int main()
                                                      repetirR=true;
                                                     break;
 
-                                               case 2:
+                                               case 2:{
+                                            int numPunterosDobles = 0;
+                                               char*** datosMaterias = registrarMaterias(numPunterosDobles);
 
-                                                     registrarMaterias();
                                                      repetirR=true;
-                                                    break;
+                                                    break;}
 
                                                case 3:
 
