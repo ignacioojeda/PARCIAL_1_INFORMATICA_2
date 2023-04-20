@@ -4,7 +4,7 @@
 using namespace std;
 
 //VARIABLES GLOBALES
-int opcion;
+int opcion, opcionR;
 int n;
 int*** semana = nullptr;
 
@@ -17,7 +17,7 @@ void imprimirSemanaHTD(int*** semana);
 
 //PROTOTIPO FUNCIONES DINAMICAS
 int*** registroSemanaHTD();
-
+char*** registrarMaterias();
 
 
 
@@ -47,10 +47,38 @@ int main()
               switch (opcion){
                      case 1:
 
-                             semana = registroSemanaHTD();
+                                     bool repetirR;
+                                     do{
 
-                             repetir=true;
-                             break;
+                                          cout <<endl;
+                                          cout << "***** MENU REGISTRO ****"<<endl;
+                                          cout << " 1. Registrar horario HTD "<<endl;
+                                          cout << " 2. registrar datos de materia    "<<endl;
+                                          cout << " 3. Salir    "<<endl;
+                                          cin >> opcionR;
+
+
+                                        switch (opcionR){
+                                               case 1:
+                                                     registroSemanaHTD();
+                                                     repetirR=true;
+                                                    break;
+
+                                               case 2:
+
+                                                     registrarMaterias();
+                                                     repetirR=true;
+                                                    break;
+
+                                               case 3:
+
+                                                       //sale del menu registro
+                                                       repetirR=false;
+                                          }
+                                      } while (repetirR==true);
+                                 repetir=true;
+                                 break;
+
 
                      case 2:
 

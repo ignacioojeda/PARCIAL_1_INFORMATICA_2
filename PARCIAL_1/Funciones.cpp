@@ -57,7 +57,7 @@ int*** registroSemanaHTD() {
         bool receso=true;
         do {
             cin.getline(materia, 40);
-            cout << "Ingresa el nombre de la materia para el dia " << i << " (o presiona enter para terminar): ";
+            cout << "Ingresa el nombre exacto de la materia para el dia " << i << " (o presiona enter para terminar): ";
             cin.getline(materia, 40);
             if (materia[0] != '\0') {
                 cout << "Ingresa la hora de inicio para la materia " << materia << " del dia " << i << ": ";
@@ -136,4 +136,73 @@ void imprimirSemanaHTD(int*** semana) {
         }
         cout << endl;
     }
+}
+
+
+char*** registrarMaterias(int& numPunterosDobles) {
+    // Definimos una variable auxiliar para contar la cantidad de punteros dobles que se han creado
+    int i = 0;
+
+    // Creamos un arreglo dinámico para almacenar los punteros dobles
+    char*** datosMaterias = new char**[100];
+
+    // Creamos un archivo de texto para almacenar los datos
+    ofstream archivo("datosMaterias.txt");
+
+    // Creamos un ciclo para que el usuario pueda registrar las materias que desee
+    while (true) {
+        // Pedimos al usuario que introduzca el nombre de la materia
+        cout << "Introduzca el nombre de la materia (o escriba 'FIN' para salir): ";
+        char nombreMateria[50];
+        cin >> nombreMateria;
+
+        // Si el usuario escribe 'FIN', salimos del ciclo
+        if (nombreMateria[0] == 'F' && nombreMateria[1] == 'I' && nombreMateria[2] == 'N' && nombreMateria[3] == '\0') {
+            break;
+        }
+
+        // Contamos la cantidad de caracteres del nombre de la materia
+        int len = 0;
+        while (nombreMateria[len] != '\0') {
+            len++;
+        }
+
+        // Creamos el puntero doble para almacenar el nombre de la materia y sus créditos
+        char** punteroDoble = new char*[2];
+        punteroDoble[0] = new char[len + 1];
+        for (int j = 0; j <= len; j++) {
+            punteroDoble[0][j] = nombreMateria[j];
+        }
+
+        // Pedimos al usuario que introduzca los créditos de la materia
+        cout << "Introduzca la cantidad de creditos de la materia: ";
+        int creditos;
+        cin >> creditos;
+
+        // Creamos el puntero simple para almacenar la cantidad de créditos
+        int* punteroSimple = new int;
+        *punteroSimple = creditos;
+
+        // Asignamos los punteros doble y simple creados a la variable datosMaterias
+        datosMaterias[i] = punteroDoble;
+        datosMaterias[i][1] = (char*) punteroSimple;
+
+        // Escribimos los datos de la materia en el archivo de texto
+        archivo << "Materia " << i+1 << ":" << endl;
+        archivo << "Nombre: " << datosMaterias[i][0] << endl;
+        archivo << "Creditos: " << *(int*)datosMaterias[i][1] << endl;
+        archivo << endl;
+
+        // Incrementamos la variable auxiliar que lleva el conteo de punteros dobles
+        i++;
+    }
+
+    // Actualizamos el valor de numPunterosDobles
+    numPunterosDobles = i;
+
+    // Cerramos el archivo de texto
+    archivo.close();
+
+    // Retornamos el arreglo dinámico
+    return datosMaterias;
 }
